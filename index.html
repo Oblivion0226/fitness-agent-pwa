@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b6b50" />
+    <meta name="description" content="离线优先的个人健身 Agent" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>练得明白 · 健身 Agent</title>
+  </head>
+  <body>
+    <header>
+      <div><p class="eyebrow">OFFLINE-FIRST FITNESS AGENT</p><h1>练得明白</h1></div>
+      <button id="install" class="ghost" hidden>安装到手机</button>
+    </header>
+    <main>
+      <section class="hero card">
+        <div><p class="eyebrow">今日状态</p><h2 id="greeting">先认识你，再安排训练。</h2><p id="summary">填写你的基础资料，Agent 才能给出真正适合你的安排。</p></div>
+        <div class="score"><b id="streak">0</b><span>次已记录训练</span></div>
+      </section>
+
+      <nav aria-label="主导航">
+        <button class="tab active" data-tab="today">今日</button><button class="tab" data-tab="profile">我的身体</button><button class="tab" data-tab="plan">训练计划</button><button class="tab" data-tab="progress">进步</button><button class="tab" data-tab="settings">设置</button>
+      </nav>
+
+      <section id="today" class="panel active">
+        <div class="card"><p class="eyebrow">和 Agent 对齐</p><h2>告诉我今天发生了什么</h2><div id="chat" class="chat" aria-live="polite"></div><div class="composer"><textarea id="message" rows="3" placeholder="例如：今天只有 40 分钟、昨晚没睡好，腿还有点酸……"></textarea><button id="send">发送</button></div><p class="hint">模型回复只在你点击发送后发生；确认后的事实才会被写入本机记忆。</p></div>
+        <div class="card"><p class="eyebrow">快速记录</p><h2>完成一次训练</h2><form id="session-form" class="grid compact"><label>训练日期<input required type="date" id="session-date" name="session-date"></label><label>完成度<select id="completion" name="completion"><option value="完成">完成</option><option value="部分完成">部分完成</option><option value="跳过">跳过</option></select></label><label>主观强度 RPE 1–10<input id="rpe" name="rpe" type="number" min="1" max="10" value="7"></label><label>备注<input id="session-note" name="session-note" placeholder="例如 卧推 30kg 3×8"></label><button>保存记录</button></form></div>
+      </section>
+
+      <section id="profile" class="panel">
+        <div class="card"><p class="eyebrow">长期记忆 · 只存在这台设备</p><h2>个人训练档案</h2><form id="profile-form" class="grid"><label>昵称<input id="name" name="name" placeholder="例如 小王"></label><label>年龄<input id="age" name="age" type="number" min="12" max="100"></label><label>身高（cm）<input id="height" name="height" type="number" min="100" max="230"></label><label>体重（kg）<input id="weight" name="weight" type="number" min="25" max="300" step="0.1"></label><label>目标<select id="goal" name="goal"><option value="增肌">增肌</option><option value="减脂">减脂</option><option value="力量提升">力量提升</option><option value="体态改善">体态改善</option><option value="健康习惯">健康习惯</option></select></label><label>每周训练次数<select id="frequency" name="frequency"><option value="2">2 次</option><option value="3" selected>3 次</option><option value="4">4 次</option><option value="5">5 次</option></select></label><label class="wide">器械与场地<textarea id="equipment" name="equipment" rows="3" placeholder="例如：学校健身房，有杠铃、深蹲架、哑铃、拉力器、腿举机"></textarea></label><label class="wide">伤病、禁忌与需要避开的动作<textarea id="constraints" name="constraints" rows="3" placeholder="没有可留空；例如右肩前侧不适，暂不做过头推举"></textarea></label><label class="wide">课表/稳定时间窗口<textarea id="schedule" name="schedule" rows="4" placeholder="例如：周二、周四 18:10–19:10；周日 18:30–20:00。临时安排也可在聊天里告诉我。"></textarea></label><button>保存档案</button></form></div>
+      </section>
+
+      <section id="plan" class="panel"><div class="card"><p class="eyebrow">Agent 输出</p><h2>本周训练建议</h2><div id="plan-output" class="plan-empty">先保存身体档案，然后点击下方“生成计划”。</div><button id="generate-plan">生成 / 更新计划</button><p class="hint">生成前会将档案、课表、近期记录组成最小必要上下文；不会上传你的 API Key。</p></div></section>
+      <section id="progress" class="panel"><div class="stats"><article class="card"><span>最近体重</span><b id="latest-weight">—</b></article><article class="card"><span>近 28 天训练</span><b id="sessions-28">0</b></article><article class="card"><span>平均 RPE</span><b id="avg-rpe">—</b></article></div><div class="card"><p class="eyebrow">训练历史</p><h2>Agent 用这些记录调整下一次</h2><div id="history" class="history"></div></div></section>
+      <section id="settings" class="panel"><div class="card"><p class="eyebrow">BYOK · 自带模型 Key</p><h2>DeepSeek 设置</h2><p>Key 仅保存到本次浏览器会话，关闭浏览器后会清除；不会写入 IndexedDB，也不会随训练数据导出。</p><label>DeepSeek API Key<input id="api-key" type="password" autocomplete="off" placeholder="sk-…"></label><label>模型名称<input id="model" value="deepseek-chat" placeholder="例如 deepseek-chat"></label><div class="row"><button id="save-settings">仅本次会话启用</button><button id="export-data" class="ghost">导出我的数据</button><button id="clear-data" class="danger">清空本机数据</button></div><p id="api-status" class="hint"></p></div></section>
+    </main>
+    <template id="message-template"><article class="bubble"><b></b><p></p></article></template>
+    <script src="./agent-prompt.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
