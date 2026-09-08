@@ -42,7 +42,7 @@
 
         <div class="section-head compact-head"><div><p class="eyebrow">PROGRESS SNAPSHOT</p><h2>本机记录</h2></div><button class="text-button" data-go="progress">查看进步 →</button></div>
         <div class="stats"><article class="metric card"><span>近 28 天</span><b id="sessions-28">0</b><small>完成训练</small></article><article class="metric card"><span>平均 RPE</span><b id="avg-rpe">—</b><small>主观强度</small></article><article class="metric card"><span>最近体重</span><b id="latest-weight">—</b><small>来自档案</small></article></div>
-        <div class="week-section"><div class="section-head"><h2>本周计划</h2><button class="text-button" data-go="plan">查看全部 ›</button></div><div id="week-strip" class="week-strip card"></div></div>
+        <button class="teaching-entry card" data-go="library"><strong>动作教学 · 肌群与发力</strong><span>11 张动作插图 · 握法与常见问题 ›</span></button><div class="week-section"><div class="section-head"><h2>本周计划</h2><button class="text-button" data-go="plan">查看全部 ›</button></div><div id="week-strip" class="week-strip card"></div></div>
       </section>
 
       <section id="coach" class="panel">
@@ -70,12 +70,12 @@
       <section id="plan" class="panel">
         <button class="line-button" data-go="library">查看动作教学库 ›</button>
         <div class="section-head"><div><p class="eyebrow">WEEKLY PLAN</p><h2>训练计划</h2></div><button id="generate-plan" class="primary-small">生成计划</button></div>
-        <div class="plan-tip card"><span>✦</span><p>计划优先调用已审核教学库中的动作；动作、组数和训练量会按你的阶段与反馈调整。</p></div>
+        <div class="plan-tip card"><span>✦</span><p>计划优先调用已收录教学库中的动作；动作、组数和训练量会按你的阶段与反馈调整。</p></div>
         <div id="plan-output" class="plan-list"><article class="empty-state"><span>⌁</span><h3>还没有计划</h3><p>保存训练档案后，生成你的第一周安排。</p></article></div>
       </section>
 
       <section id="library" class="panel">
-        <div class="section-head"><div><p class="eyebrow">VERIFIED LIBRARY</p><h2>动作教学库</h2></div><span id="library-count" class="local-pill">已审核</span></div>
+        <div class="section-head"><div><p class="eyebrow">MOVEMENT LIBRARY</p><h2>动作教学库</h2></div><span id="library-count" class="local-pill">已收录</span></div>
         <article class="library-notice card"><b>每个已收录动作都有教学卡。</b><p>肌群图用于理解主要参与区域，不代表精确肌电比例；握距、站距以关节舒适、稳定和全程可控为优先。</p></article>
         <div id="library-list" class="library-list"></div>
       </section>

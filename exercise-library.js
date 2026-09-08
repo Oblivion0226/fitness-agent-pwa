@@ -17,8 +17,8 @@ const VERIFIED_EXERCISES = [
     force: '控制杠铃下降到中下胸附近；上推时保持肩胛稳定，让杠铃回到起点。脚下稳定是提供全身张力，不是臀部离凳弹起。',
     cue: '“肩胛稳住，手腕叠在前臂上，推杠不是耸肩。”',
     avoid: '没有保护杠时不要接近力竭；肩前侧疼痛、手腕明显后折或臀部离凳时先减重并调整。',
-    source: 'NSCA 运动技术手册',
-    url: 'https://www1.rockpeaks.com/default.aspx/scholarship/597/528/aK0JRF/nsca__exercise_technique_manual.pdf'
+    source: 'ACE 胸部训练研究与卧推动作说明',
+    url: 'https://contentcdn.eacefitness.com/certifiednews/images/article/pdfs/ACE_BestChestExercises.pdf'
   },
   {
     id: 'conventional-deadlift', name: '传统硬拉', short: '硬拉', level: '需杠铃',
@@ -37,18 +37,18 @@ const VERIFIED_EXERCISES = [
     force: '膝盖只保持轻微弯曲，重点是髋向后移；器械始终贴近腿，感到腿后侧拉伸且脊柱仍可控制时折返，臀部向前伸展站起。',
     cue: '“屁股往后找墙，器械贴腿，别把它变成深蹲。”',
     avoid: '不要为了下得更低而圆背；若下背先不适而腿后侧没有拉伸感，先减重或缩短幅度。',
-    source: 'ACE Total-body Barbell Workout：Straight Leg Deadlift 要点',
-    url: 'https://www.acefitness.org/resources/pros/expert-articles/3802/ace-total-body-barbell-workout/'
+    source: 'ACE 2025：Romanian Deadlift 动作教学',
+    url: 'https://www.acefitness.org/continuing-education/certified/may-2025/8865/the-ace-do-it-better-series-the-romanian-deadlift/'
   },
   {
     id: 'lat-pulldown', name: '高位下拉', short: '下拉', level: '需高位下拉器',
     primary: ['背阔肌'], secondary: ['大圆肌', '肱二头肌', '中背部'], map: ['lats', 'biceps', 'midBack'],
     setup: '大腿固定在压腿垫下，躯干轻微后倾且胸部自然抬起。握距从略宽于肩开始；也可用中立把手，以肩部舒适和全程可控为先。',
-    force: '先让肩胛向下稳定，再将肘向身体两侧和下方带动，把把手拉向上胸附近；控制回程，手臂伸直前不要耸肩。',
+    force: '将肘向身体两侧和下方带动，把把手拉向上胸附近；控制回程，让肩胛随手臂自然运动，不要全程强行夹紧或压低肩胛。',
     cue: '“肘往裤兜方向走，别用身体往后甩。”',
     avoid: '不要拉到颈后；若必须大幅后仰才能拉动，说明重量或动作选择不合适。',
-    source: 'ACE Beginner Strength Training：Lat Pull-down 教学',
-    url: 'https://www.acefitness.org/resources/everyone/blog/3714/beginner-strength-training-workout/'
+    source: 'ACE 动作库：Seated Lat Pulldown',
+    url: 'https://www.acefitness.org/resources/everyone/exercise-library/158/seated-lat-pulldown/'
   },
   {
     id: 'seated-row', name: '坐姿划船', short: '划船', level: '拉力器或弹力带',
@@ -82,4 +82,36 @@ const VERIFIED_EXERCISES = [
   }
 ];
 
+VERIFIED_EXERCISES.push(
+  {
+    id: 'push-up', name: '俯卧撑', short: '徒手水平推', level: '徒手',
+    primary: ['胸大肌'], secondary: ['肱三头肌', '前三角肌', '核心（稳定）'],
+    setup: '双手放在肩下附近、可略宽于肩，手掌展开压稳；双脚后伸，头、躯干与腿保持连贯，视线朝向地面。',
+    force: '屈肘让身体整体下降，肘不要完全向两侧张开；在肩部舒适、躯干稳定的范围内下放，再推地回起点。',
+    cue: '“胸和髋一起下去，一起上来，别抬头找前方。”',
+    avoid: '塌腰或肩腕疼痛时停止；可改为手撑牢固高台的上斜版本，不按性别限定动作难度。',
+    source: 'NASM 动作库：Push-Up',
+    url: 'https://www.nasm.org/resource-center/exercise-library/push-up'
+  },
+  {
+    id: 'split-squat', name: '原地分腿蹲', short: '单侧下肢', level: '徒手，必要时扶稳',
+    primary: ['股四头肌', '臀大肌'], secondary: ['内收肌群', '核心（稳定）'],
+    setup: '前后分腿站立，两脚保留左右间距，不走钢丝；前脚全脚掌着地，后脚脚跟抬起，脚趾支撑。先不负重，必要时扶牢固支撑物。',
+    force: '双脚位置不动，屈髋屈膝让身体受控下降，后膝接近地面但不撞地；前脚推地回升，每侧分别完成。',
+    cue: '“前脚踩稳，膝盖跟脚尖方向，身体别来回晃。”',
+    avoid: '这不是后脚抬高的保加利亚分腿蹲；不强求固定步距或角度，失去平衡就缩小幅度，疼痛时停止。',
+    source: 'Accelerate Physical Therapy：Split Squat 教学（2014）',
+    url: 'https://acceleratephysicaltherapy.com/2014/06/18/how-to-do-proper-split-squats-for-maximum-benefit/'
+  },
+  {
+    id: 'front-plank', name: '前臂平板支撑', short: '核心抗伸展', level: '徒手与垫子',
+    primary: ['腹直肌', '腹横肌（深层，不可直接看到）'], secondary: ['腹斜肌', '肩带稳定肌'],
+    setup: '前臂放在垫上，肘位于肩下附近；双腿后伸、脚趾撑地，头颈和躯干保持自然延续。',
+    force: '维持躯干稳定、持续呼吸，抵抗腰部下塌；姿势开始走样就结束，不靠憋气硬撑时间。',
+    cue: '“肋骨和骨盆稳住，保持呼吸。”',
+    avoid: '避免塌腰、明显撅臀或追求超长时长；可先用膝盖着地版本，肩腰疼痛则停止。',
+    source: 'NASM 动作库：Plank',
+    url: 'https://www.nasm.org/resource-center/exercise-library/plank'
+  }
+);
 const EXERCISE_BY_ID = Object.fromEntries(VERIFIED_EXERCISES.map(exercise => [exercise.id, exercise]));

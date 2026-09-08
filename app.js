@@ -68,35 +68,7 @@ function sourceLabel(url) {
 }
 
 function muscleMap(exercise, compact = false) {
-  const active = new Set(exercise.map || []);
-  const fill = (name) => active.has(name) ? '#df724f' : '#d4e1d9';
-  const stroke = '#729285';
-  const label = compact ? '' : `<text x="60" y="164" text-anchor="middle" fill="#668175" font-size="10">正面</text><text x="180" y="164" text-anchor="middle" fill="#668175" font-size="10">背面</text>`;
-  return `<svg class="muscle-svg ${compact ? 'mini-map' : ''}" viewBox="0 0 240 174" role="img" aria-label="${escapeAttribute(exercise.name)}的主要参与肌群示意">
-    <g stroke="${stroke}" stroke-width="1.5">
-      <circle cx="60" cy="20" r="12" fill="#d4e1d9"/>
-      <path d="M43 38 Q60 30 77 38 L82 86 Q60 99 38 86Z" fill="#edf3ef"/>
-      <rect x="29" y="40" width="10" height="47" rx="5" fill="${fill('biceps')}"/>
-      <rect x="81" y="40" width="10" height="47" rx="5" fill="${fill('triceps')}"/>
-      <ellipse cx="45" cy="42" rx="10" ry="7" fill="${fill('frontShoulder')}"/>
-      <ellipse cx="75" cy="42" rx="10" ry="7" fill="${fill('frontShoulder')}"/>
-      <path d="M44 48 Q60 41 76 48 L74 66 Q60 70 46 66Z" fill="${fill('chest')}"/>
-      <path d="M47 88 L58 88 L57 145 L43 145Z" fill="${fill('quads')}"/>
-      <path d="M62 88 L73 88 L77 145 L63 145Z" fill="${fill('quads')}"/>
-      <circle cx="180" cy="20" r="12" fill="#d4e1d9"/>
-      <path d="M163 38 Q180 30 197 38 L202 86 Q180 99 158 86Z" fill="#edf3ef"/>
-      <rect x="149" y="40" width="10" height="47" rx="5" fill="${fill('triceps')}"/>
-      <rect x="201" y="40" width="10" height="47" rx="5" fill="${fill('triceps')}"/>
-      <ellipse cx="165" cy="42" rx="10" ry="7" fill="${fill('rearShoulder')}"/>
-      <ellipse cx="195" cy="42" rx="10" ry="7" fill="${fill('rearShoulder')}"/>
-      <path d="M166 47 Q180 42 194 47 L192 70 Q180 76 168 70Z" fill="${fill('midBack')}"/>
-      <path d="M177 48 L183 48 L184 82 L176 82Z" fill="${fill('back')}"/>
-      <path d="M160 52 L171 54 L170 81 L160 77Z" fill="${fill('lats')}"/>
-      <path d="M200 52 L189 54 L190 81 L200 77Z" fill="${fill('lats')}"/>
-      <path d="M164 82 Q180 72 196 82 L194 96 Q180 104 166 96Z" fill="${fill('glutes')}"/>
-      <path d="M167 96 L178 96 L177 145 L163 145Z" fill="${fill('hamstrings')}"/>
-      <path d="M182 96 L193 96 L197 145 L183 145Z" fill="${fill('hamstrings')}"/>
-    </g>${label}</svg>`;
+  return `<img class="anatomy-image ${compact ? 'mini-map' : ''}" src="./assets/exercises/${escapeAttribute(exercise.id)}.png" alt="${escapeAttribute(exercise.name)}：动作姿态与肌群插画" width="1536" height="1024" loading="${compact ? 'lazy' : 'eager'}">`;
 }
 
 function catalogForModel() {
@@ -167,7 +139,7 @@ function parsePlan(raw) {
 function renderPlan() {
   const root = $('#plan-output');
   if (!state.plan?.items?.length) {
-    root.innerHTML = '<div class="empty"><strong>还没有计划</strong><p>先完成档案，再生成一份只使用已审核动作的计划。</p></div>';
+    root.innerHTML = '<div class="empty"><strong>还没有计划</strong><p>先完成档案，再生成一份只使用已收录动作的计划。</p></div>';
     return;
   }
   root.innerHTML = `${state.plan.note ? `<p class="plan-note">${escapeHTML(state.plan.note)}</p>` : ''}${state.plan.items.map((item) => `
@@ -208,7 +180,7 @@ function renderToday() {
   if (session) {
     $('#today-title').textContent = session.title;
     $('#today-detail').textContent = session.detail || '打开计划，逐个查看动作教学。';
-    $('#today-time').textContent = `${session.exercises?.length || 0} 个已审核动作`;
+    $('#today-time').textContent = `${session.exercises?.length || 0} 个已收录动作`;
     $('#today-intensity').textContent = session.exercises?.[0]?.rpe || '按状态调整';
   } else {
     $('#today-title').textContent = state.plan ? '今天 · 待安排' : '开启你的训练';
@@ -227,7 +199,7 @@ function renderToday() {
 }
 
 function renderLibrary() {
-  $('#library-count').textContent = `${VERIFIED_EXERCISES.length} 个已审核动作`;
+  $('#library-count').textContent = `${VERIFIED_EXERCISES.length} 个已收录动作`;
   $('#library-list').innerHTML = VERIFIED_EXERCISES.map((exercise) => `<button class="library-card" type="button" data-exercise-id="${escapeAttribute(exercise.id)}">
     ${muscleMap(exercise, true)}
     <span><strong>${escapeHTML(exercise.name)}</strong><small>主要：${escapeHTML(exercise.primary.join('、'))}</small><em>${escapeHTML(exercise.level)}</em></span><b>查看教学 ›</b>
@@ -275,8 +247,9 @@ function render() {
 function openExercise(id) {
   const exercise = EXERCISE_BY_ID[id];
   if (!exercise) return;
-  $('#exercise-detail').innerHTML = `<div class="exercise-modal-head"><div class="big-map">${muscleMap(exercise)}</div><div><span class="eyebrow">${escapeHTML(exercise.level)} · 已审核教学</span><h2>${escapeHTML(exercise.name)}</h2><p>${escapeHTML(exercise.short)}</p><div class="chips"><span>主要：${escapeHTML(exercise.primary.join('、'))}</span><span>协同：${escapeHTML(exercise.secondary.join('、'))}</span></div></div></div>
-    <p class="diagram-note">肌群颜色是主要参与部位的教学示意，不代表个体肌电、疼痛诊断或热量消耗。</p>
+  $('#exercise-detail').innerHTML = `<div class="exercise-modal-head"><div><span class="eyebrow">${escapeHTML(exercise.level)} · 已收录教学</span><h2>${escapeHTML(exercise.name)}</h2><p>${escapeHTML(exercise.short)}</p><div class="chips"><span>主要：${escapeHTML(exercise.primary.join('、'))}</span><span>协同：${escapeHTML(exercise.secondary.join('、'))}</span></div></div></div>
+    <figure class="anatomy-figure"><a href="./assets/exercises/${escapeAttribute(exercise.id)}.png" target="_blank" rel="noopener noreferrer" aria-label="打开原图放大查看">${muscleMap(exercise)}</a><figcaption>点击图片放大 · 单一阶段示意，并非完整动作演示</figcaption></figure>
+    <p class="diagram-note">AI 辅助插画，未经过专业人士逐图认证。颜色仅辅助理解肌群位置，不是精确解剖或肌电图；不要照抄图中的头颈角度、握距与关节角度。动作细节以以下文字、原始教学来源和现场检查为准。</p>
     <section class="teaching-section"><h3>起始姿势与握法</h3><p>${escapeHTML(exercise.setup)}</p></section>
     <section class="teaching-section"><h3>怎么发力</h3><p>${escapeHTML(exercise.force)}</p></section>
     <section class="teaching-section"><h3>一个关键提示</h3><p>${escapeHTML(exercise.cue)}</p></section>
@@ -289,12 +262,13 @@ async function askAgent(message, isPlanRequest = false) {
   const key = $('#api-key').value.trim();
   const model = $('#model').value.trim() || 'deepseek-chat';
   if (!key) throw new Error('先在设置中填写你自己的 DeepSeek API Key。');
-  const planInstruction = isPlanRequest ? `\n\n现在需要生成计划。只能从以下已审核动作库中选择动作，并且必须输出对应 id；不得输出库外动作或自创握法。只输出 JSON：{"note":"...","items":[{"day":"...","title":"...","detail":"...","exercises":[{"id":"动作库 id","sets":"固定组数","reps":"次数","rpe":"RPE/RIR","rest":"休息","note":"简短提示"}]}]}。已审核动作库：${JSON.stringify(catalogForModel())}` : '';
+  const planInstruction = isPlanRequest ? `\n\n现在需要生成计划。只能从以下已收录动作库中选择动作，并且必须输出对应 id；不得输出库外动作或自创握法。只输出 JSON：{"note":"...","items":[{"day":"...","title":"...","detail":"...","exercises":[{"id":"动作库 id","sets":"固定组数","reps":"次数","rpe":"RPE/RIR","rest":"休息","note":"简短提示"}]}]}。已收录动作库：${JSON.stringify(catalogForModel())}` : '';
   const body = {
     model,
     temperature: 0.35,
     messages: [
       { role: 'system', content: `${AGENT_SYSTEM_PROMPT}\n\n当前用户本机上下文：${JSON.stringify(context())}${planInstruction}` },
+      ...state.messages.slice(0, state.messages.at(-1)?.role === 'user' && state.messages.at(-1)?.content === message ? -1 : undefined).slice(-16).filter(m => ['user', 'assistant'].includes(m.role)).map(m => ({role: m.role, content: String(m.content).slice(0, 6000)})),
       { role: 'user', content: message },
     ],
   };
@@ -349,8 +323,12 @@ function bindEvents() {
     setBusy(button, true);
     try {
       const reply = await askAgent('请基于我的档案和训练记录制定下一周可执行计划。先判断是否信息足够；若足够，按规定 JSON 输出。', true);
-      state.plan = parsePlan(reply) || localPlan();
-      if (!parsePlan(reply)) state.messages.push({ role: 'assistant', content: `模型没有按受控动作库返回可用计划，已改用离线保守版。原回复：\n${reply}` });
+      const plan = parsePlan(reply);
+      if (plan) state.plan = plan;
+      else {
+        state.messages.push({ role: 'assistant', content: reply });
+        switchTab('coach');
+      }
       await saveState(); render();
     } catch (error) { alert(error.message); }
     finally { setBusy(button, false); }
