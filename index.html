@@ -7,12 +7,14 @@
     <meta name="description" content="本地优先的个人健身教练 Agent" />
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./reference-ui.css" />
     <title>练得明白 · 健身 Agent</title>
   </head>
   <body>
     <main class="app-shell">
       <header class="app-header">
         <div class="brand"><span class="brand-mark">↗</span><div><p class="eyebrow">TRAIN WITH CLARITY</p><h1>练得明白</h1></div></div>
+        <button class="profile-shortcut" data-go="profile" aria-label="打开身体档案"><img src="./coach-avatar.svg" alt="个人头像"></button>
         <button id="install" class="icon-button" hidden aria-label="安装到手机">↓</button>
       </header>
 
@@ -25,20 +27,22 @@
         <div class="section-head"><div><p class="eyebrow">TODAY</p><h2>今天怎么练？</h2></div><button class="text-button" data-go="plan">本周计划 →</button></div>
         <article class="today-workout card" id="today-workout">
           <div class="workout-top"><span class="workout-icon">⌁</span><p>今日训练</p></div>
+          <img class="gym-illustration" src="./gym-illustration.svg" alt="深蹲架与训练凳插画">
           <h3 id="today-title">先建立你的训练档案</h3>
           <p id="today-detail">告诉 Agent 你的目标、时间与器械，再生成可执行安排。</p>
           <div class="workout-meta"><span id="today-time">待安排</span><span id="today-intensity">先完成评估</span></div>
-          <button class="primary-action" data-go="plan">查看 / 开始训练</button>
+          <button class="primary-action" id="today-action" data-go="profile">建立训练档案</button>
         </article>
 
         <div class="section-head compact-head"><div><p class="eyebrow">COACH CHECK-IN</p><h2>教练调整</h2></div><button class="text-button" data-go="coach">和教练聊聊 →</button></div>
         <article class="coach-card card">
-          <div class="coach-mark">教</div><p>告诉我今天的时间、睡眠或不适，我会调整训练，而不是让你硬练。</p>
+          <button class="coach-entry" data-go="coach"><img src="./coach-avatar.svg" alt=""><span><strong>教练调整</strong><small>告诉我你的状态，为你调整训练方案。</small></span><span>›</span></button>
           <div class="quick-prompts"><button data-prompt="今天只有 40 分钟，帮我调整训练。">只有 40 分钟</button><button data-prompt="我昨晚没睡好，今天适合训练吗？">昨晚没睡好</button><button data-prompt="我今天不舒服，想调整或跳过训练。">今天不舒服</button></div>
         </article>
 
         <div class="section-head compact-head"><div><p class="eyebrow">PROGRESS SNAPSHOT</p><h2>本机记录</h2></div><button class="text-button" data-go="progress">查看进步 →</button></div>
         <div class="stats"><article class="metric card"><span>近 28 天</span><b id="sessions-28">0</b><small>完成训练</small></article><article class="metric card"><span>平均 RPE</span><b id="avg-rpe">—</b><small>主观强度</small></article><article class="metric card"><span>最近体重</span><b id="latest-weight">—</b><small>来自档案</small></article></div>
+        <div class="week-section"><div class="section-head"><h2>本周计划</h2><button class="text-button" data-go="plan">查看全部 ›</button></div><div id="week-strip" class="week-strip card"></div></div>
       </section>
 
       <section id="coach" class="panel">
@@ -64,6 +68,7 @@
       </section>
 
       <section id="plan" class="panel">
+        <button class="line-button" data-go="library">查看动作教学库 ›</button>
         <div class="section-head"><div><p class="eyebrow">WEEKLY PLAN</p><h2>训练计划</h2></div><button id="generate-plan" class="primary-small">生成计划</button></div>
         <div class="plan-tip card"><span>✦</span><p>计划优先调用已审核教学库中的动作；动作、组数和训练量会按你的阶段与反馈调整。</p></div>
         <div id="plan-output" class="plan-list"><article class="empty-state"><span>⌁</span><h3>还没有计划</h3><p>保存训练档案后，生成你的第一周安排。</p></article></div>
@@ -89,7 +94,7 @@
       </section>
     </main>
 
-    <nav class="bottom-nav" aria-label="主导航"><button class="tab active" data-tab="today"><span>⌂</span>今日</button><button class="tab" data-tab="coach"><span>◌</span>教练</button><button class="tab" data-tab="plan"><span>▤</span>计划</button><button class="tab" data-tab="library"><span>◎</span>动作</button><button class="tab" data-tab="progress"><span>▥</span>进步</button><button class="tab" data-tab="settings"><span>⚙</span>设置</button></nav>
+    <nav class="bottom-nav" aria-label="主导航"><button class="tab active" data-tab="today"><span>⌂</span>今日</button><button class="tab" data-tab="profile"><span>♙</span>身体</button><button class="tab" data-tab="plan"><span>▤</span>计划</button><button class="tab" data-tab="progress"><span>▥</span>进步</button><button class="tab" data-tab="settings"><span>⚙</span>设置</button></nav>
     <dialog id="exercise-dialog" class="exercise-dialog"><button id="close-exercise" class="dialog-close" aria-label="关闭">×</button><div id="exercise-detail"></div></dialog>
     <template id="message-template"><article class="bubble"><b></b><p></p></article></template>
     <script src="./exercise-library.js"></script><script src="./agent-prompt.js"></script><script src="./app.js"></script>

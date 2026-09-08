@@ -189,19 +189,31 @@ function renderPlan() {
 function renderToday() {
   $('#hero-date').textContent = todayLabel();
   const name = state.profile.name || '训练者';
-  $('#greeting').textContent = `你好，${name}`;
-  $('#summary').textContent = state.sessions.length ? '教练会结合你的近期完成度、RPE 与恢复做下一步判断。' : '先建立档案，再把训练安排做得贴合你的真实生活。';
+  const hour = new Date().getHours();
+  $('#greeting').textContent = `${hour < 11 ? '早上好' : hour < 14 ? '中午好' : hour < 18 ? '下午好' : '晚上好'}，${name}`;
+  $('#summary').textContent = '专注当下，每一次训练都算数。';
   $('#avatar').textContent = name.slice(0, 1);
-  const session = state.plan?.items?.[0];
+  const weekdays = ['周一','周二','周三','周四','周五','周六','周日'];
+  const monday = new Date(); monday.setHours(0,0,0,0); monday.setDate(monday.getDate() - (monday.getDay()+6)%7);
+  const daily = weekdays.map((day, i) => {
+    const date = new Date(monday); date.setDate(date.getDate()+i);
+    const iso = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+    return (state.plan?.items || []).find(item => String(item.day).includes(iso) || (!/\d{4}-\d{2}-\d{2}/.test(String(item.day)) && String(item.day).includes(day)));
+  });
+  const currentDay = (new Date().getDay()+6)%7;
+  const session = daily[currentDay];
+  $('#week-strip').innerHTML = weekdays.map((day,i) => `<button class="week-day ${i===currentDay?'current':''} ${daily[i]?'scheduled':''}" data-week-day="${i}"><span>${day}</span><strong>${escapeHTML(daily[i]?.title || '待安排')}</strong><i></i></button>`).join('');
+  $('#today-action').dataset.go = state.profile.name || state.profile.equipment ? 'plan' : 'profile';
+  $('#today-action').textContent = session ? '开始训练' : state.plan ? '查看本周计划' : '建立训练档案';
   if (session) {
     $('#today-title').textContent = session.title;
     $('#today-detail').textContent = session.detail || '打开计划，逐个查看动作教学。';
     $('#today-time').textContent = `${session.exercises?.length || 0} 个已审核动作`;
     $('#today-intensity').textContent = session.exercises?.[0]?.rpe || '按状态调整';
   } else {
-    $('#today-title').textContent = '先完成你的运动档案';
+    $('#today-title').textContent = state.plan ? '今天 · 待安排' : '开启你的训练';
     $('#today-detail').textContent = '教练需要你的目标、经验与可训练时间，才能安全排计划。';
-    $('#today-time').textContent = '约 2 分钟';
+    $('#today-time').textContent = state.plan ? '查看计划确认时间' : '先了解你的目标';
     $('#today-intensity').textContent = '先对齐情况';
   }
   const recent = state.sessions.filter((entry) => {
@@ -301,8 +313,9 @@ function setBusy(button, busy, text = '生成中…') {
 }
 
 function switchTab(tab) {
+  $('.hero-card').classList.toggle('is-hidden', tab !== 'today');
   document.querySelectorAll('.panel').forEach((element) => element.classList.toggle('active', element.id === tab));
-  document.querySelectorAll('.tab').forEach((element) => element.classList.toggle('active', element.dataset.tab === tab));
+  document.querySelectorAll('.tab').forEach((element) => element.classList.toggle('active', element.dataset.tab === (tab === 'coach' ? 'today' : tab === 'library' ? 'plan' : tab)));
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -310,6 +323,7 @@ function bindEvents() {
   document.querySelectorAll('[data-tab]').forEach((button) => button.addEventListener('click', () => switchTab(button.dataset.tab)));
   document.querySelectorAll('[data-go]').forEach((button) => button.addEventListener('click', () => switchTab(button.dataset.go)));
   document.addEventListener('click', (event) => {
+    if (event.target.closest('[data-week-day]')) switchTab('plan');
     const action = event.target.closest('[data-exercise-id]');
     if (action) openExercise(action.dataset.exerciseId);
   });
@@ -378,6 +392,15 @@ function bindEvents() {
 }
 
 async function init() {
+  const icons = {
+    today:'<path d="m3 10 9-7 9 7v11h-6v-7H9v7H3Z"/>',
+    profile:'<circle cx="12" cy="4" r="2"/><path d="M7 21V10l-3 3-2-2 6-5h8l6 5-2 2-3-3v11m-5-8v8M7 11h10"/>',
+    plan:'<rect x="4" y="4" width="16" height="18" rx="2"/><path d="M8 2v4m8-4v4M8 11h8m-8 4h8m-8 4h5"/>',
+    progress:'<rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/>',
+    settings:'<path d="m10 2-1 3-3 1-3-1-2 4 2 2v3l-2 2 2 4 3-1 3 1 1 3h4l1-3 3-1 3 1 2-4-2-2v-3l2-2-2-4-3 1-3-1-1-3Z"/><circle cx="12" cy="12" r="4"/>'
+  };
+  document.querySelectorAll('.tab').forEach(button=>{button.querySelector('span').innerHTML=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[button.dataset.tab]}</svg>`;});
+  $('.workout-icon').innerHTML='<svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 2v6m10-6v6M3 11h18"/></svg>';
   state = { ...state, ...(await loadState()) };
   $('#api-key').value = localStorage.getItem(API_KEY_STORAGE) || '';
   $('#model').value = localStorage.getItem(MODEL_STORAGE) || 'deepseek-chat';
