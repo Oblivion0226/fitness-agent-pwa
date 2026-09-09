@@ -82,36 +82,62 @@ const VERIFIED_EXERCISES = [
   }
 ];
 
-VERIFIED_EXERCISES.push(
+VERIFIED_EXERCISES.push(...[
   {
-    id: 'push-up', name: '俯卧撑', short: '徒手水平推', level: '徒手',
-    primary: ['胸大肌'], secondary: ['肱三头肌', '前三角肌', '核心（稳定）'],
-    setup: '双手放在肩下附近、可略宽于肩，手掌展开压稳；双脚后伸，头、躯干与腿保持连贯，视线朝向地面。',
-    force: '屈肘让身体整体下降，肘不要完全向两侧张开；在肩部舒适、躯干稳定的范围内下放，再推地回起点。',
-    cue: '“胸和髋一起下去，一起上来，别抬头找前方。”',
-    avoid: '塌腰或肩腕疼痛时停止；可改为手撑牢固高台的上斜版本，不按性别限定动作难度。',
-    source: 'NASM 动作库：Push-Up',
-    url: 'https://www.nasm.org/resource-center/exercise-library/push-up'
+    "id": "machine-chest-press",
+    "name": "坐姿推胸机",
+    "short": "固定器械水平推",
+    "level": "坐姿推胸机",
+    "primary": [
+      "胸大肌"
+    ],
+    "secondary": [
+      "肱三头肌",
+      "前三角肌"
+    ],
+    "setup": "调节座椅，使把手大致与胸部中段同高，背部靠稳、脚掌着地。用拇指环握把手，手腕与前臂保持连贯；握距受机器把手限制，选肩部舒适的握位，不强求固定厘米数。",
+    "force": "保持躯干稳定，将把手受控向前推，再缓慢还原。不要猛撞伸直终点，也不要让把手后退到肩前侧疼痛的位置。",
+    "cue": "“背靠稳，手腕直，向前推而不是耸肩。”",
+    "avoid": "先确认插销完全插入、座椅锁紧；不同机器轨迹不同，先用轻负荷试行程。机器固定轨迹不等于绝对安全。",
+    "source": "NASM：Chest Press Machine",
+    "url": "https://www.nasm.org/resource-center/exercise-library/chest-press-machine"
   },
   {
-    id: 'split-squat', name: '原地分腿蹲', short: '单侧下肢', level: '徒手，必要时扶稳',
-    primary: ['股四头肌', '臀大肌'], secondary: ['内收肌群', '核心（稳定）'],
-    setup: '前后分腿站立，两脚保留左右间距，不走钢丝；前脚全脚掌着地，后脚脚跟抬起，脚趾支撑。先不负重，必要时扶牢固支撑物。',
-    force: '双脚位置不动，屈髋屈膝让身体受控下降，后膝接近地面但不撞地；前脚推地回升，每侧分别完成。',
-    cue: '“前脚踩稳，膝盖跟脚尖方向，身体别来回晃。”',
-    avoid: '这不是后脚抬高的保加利亚分腿蹲；不强求固定步距或角度，失去平衡就缩小幅度，疼痛时停止。',
-    source: 'Accelerate Physical Therapy：Split Squat 教学（2014）',
-    url: 'https://acceleratephysicaltherapy.com/2014/06/18/how-to-do-proper-split-squats-for-maximum-benefit/'
+    "id": "leg-press",
+    "name": "坐姿腿举机",
+    "short": "固定器械下肢推",
+    "level": "坐姿腿举机",
+    "primary": [
+      "股四头肌",
+      "臀大肌"
+    ],
+    "secondary": [
+      "内收肌群"
+    ],
+    "setup": "按机器铭牌调节座椅和行程，背部与骨盆靠稳。双脚完整踩在踏板上，从髋宽至肩宽附近试起，膝盖大致跟随脚尖方向；双手握侧边把手。",
+    "force": "用整个脚掌推踏板，让髋膝受控伸展；缓慢回到能保持骨盆贴垫的深度，不用膝关节猛顶终点。",
+    "cue": "“脚掌踩满，膝盖跟脚尖，屁股别卷离坐垫。”",
+    "avoid": "图示为坐姿机，不是所有45度倒蹬机的解锁教程。若有安全挡位，使用前请工作人员演示；不要用手推膝盖帮助完成，别照抄图中的赤足外观。",
+    "source": "NASM：Leg Press",
+    "url": "https://www.nasm.org/resource-center/exercise-library/leg-press"
   },
   {
-    id: 'front-plank', name: '前臂平板支撑', short: '核心抗伸展', level: '徒手与垫子',
-    primary: ['腹直肌', '腹横肌（深层，不可直接看到）'], secondary: ['腹斜肌', '肩带稳定肌'],
-    setup: '前臂放在垫上，肘位于肩下附近；双腿后伸、脚趾撑地，头颈和躯干保持自然延续。',
-    force: '维持躯干稳定、持续呼吸，抵抗腰部下塌；姿势开始走样就结束，不靠憋气硬撑时间。',
-    cue: '“肋骨和骨盆稳住，保持呼吸。”',
-    avoid: '避免塌腰、明显撅臀或追求超长时长；可先用膝盖着地版本，肩腰疼痛则停止。',
-    source: 'NASM 动作库：Plank',
-    url: 'https://www.nasm.org/resource-center/exercise-library/plank'
+    "id": "seated-leg-curl",
+    "name": "坐姿腿弯举机",
+    "short": "屈膝 · 大腿后侧",
+    "level": "坐姿腿弯举机",
+    "primary": [
+      "腘绳肌"
+    ],
+    "secondary": [
+      "腓肠肌"
+    ],
+    "setup": "调节靠背使膝部与机器标示转轴对齐；上方压垫固定大腿，下方滚垫接触小腿后侧、脚跟上方。背部靠稳，双手握把。具体调节顺序以本机铭牌为准。",
+    "force": "屈膝把脚跟向座椅下方带动，控制滚垫向下、向后移动；再缓慢伸膝还原。保持骨盆稳定，不借上身摆动。",
+    "cue": "“大腿稳住，用腿后侧把滚垫卷回来。”",
+    "avoid": "这是腿弯举，不是滚垫在小腿前侧的腿屈伸。膝后受挤压或关节疼痛时停止，重新检查座椅、转轴和滚垫位置。",
+    "source": "NASM：Seated Leg Curl（肌群与运动方向；调节以机器说明为准）",
+    "url": "https://www.nasm.org/resource-center/exercise-library/seated-leg-curl"
   }
-);
+]);
 const EXERCISE_BY_ID = Object.fromEntries(VERIFIED_EXERCISES.map(exercise => [exercise.id, exercise]));
