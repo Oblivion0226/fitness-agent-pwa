@@ -140,4 +140,159 @@ VERIFIED_EXERCISES.push(...[
     "url": "https://www.nasm.org/resource-center/exercise-library/seated-leg-curl"
   }
 ]);
+VERIFIED_EXERCISES.push(...[
+  {
+    "id": "pec-deck",
+    "name": "蝴蝶机夹胸",
+    "short": "胸部 · 器械飞鸟",
+    "level": "蝴蝶机（手握式）",
+    "primary": [
+      "胸大肌"
+    ],
+    "secondary": [
+      "前三角肌"
+    ],
+    "setup": "座椅调至把手与胸部中段大致同高，背靠垫、脚踩地；握稳把手，肘轻弯。肘垫式机器需按本机说明调整。",
+    "force": "肘角大致固定，双臂向胸前合拢，再缓慢打开。不是反复屈伸肘的推胸。",
+    "cue": "像合拢双臂抱住大桶，躯干不前扑。",
+    "avoid": "不强拉到肩后、不撞配重；肩前侧疼痛时停止。",
+    "source": "Fitness Institute：Pec Fly",
+    "url": "https://fitnessinstitute.com.au/pec-fly-pin-loaded/"
+  },
+  {
+    "id": "incline-dumbbell-press",
+    "name": "上斜哑铃推胸",
+    "short": "胸部 · 上斜推",
+    "level": "哑铃与可调训练凳",
+    "primary": [
+      "胸大肌（含锁骨部）"
+    ],
+    "secondary": [
+      "前三角肌",
+      "肱三头肌"
+    ],
+    "setup": "锁紧上斜档位，头、上背与臀部有支撑，脚踩稳。拇指环握，腕与前臂连贯，肘在手腕下方。凳角按肩部耐受调整，不是越高越好。",
+    "force": "同步控制哑铃降向上胸两侧，在肩部舒适范围折返，向上推回，不靠过度拱腰借力。",
+    "cue": "手腕叠稳，左右同步，控制下放。",
+    "avoid": "本卡为哑铃版本，不是上斜推胸机调节教程。取放重量也须控制，重哑铃请人保护。",
+    "source": "ACE：Incline Chest Press",
+    "url": "https://www.acefitness.org/resources/everyone/exercise-library/25/incline-chest-press/"
+  },
+  {
+    "id": "face-pull",
+    "name": "绳索面拉",
+    "short": "肩后束与上背",
+    "level": "拉力器与双头绳",
+    "primary": [
+      "后三角肌",
+      "菱形肌"
+    ],
+    "secondary": [
+      "中斜方肌",
+      "肩袖肌群"
+    ],
+    "setup": "滑轮调至面部附近高度，双手各握绳的一端，退后使绳有张力并站稳。检查插销与扣锁。图为起始位置，不是终点。",
+    "force": "屈肘向后带动，把绳拉向面部并分开两端，双手靠近脸两侧；到舒适范围停下，再受控伸臂还原。",
+    "cue": "绳拉向脸，不是脸去追绳；轻重量、躯干稳。",
+    "avoid": "不后仰猛拽、不强求固定肘角，绳不要碰眼睛；不是治疗圆肩或肩痛的处方。",
+    "source": "NASM：Face Pull",
+    "url": "https://www.nasm.org/resource-center/exercise-library/face-pull"
+  },
+  {
+    "id": "dumbbell-curl",
+    "name": "哑铃二头弯举",
+    "short": "手臂 · 旋后握",
+    "level": "哑铃",
+    "primary": [
+      "肱二头肌"
+    ],
+    "secondary": [
+      "肱肌",
+      "肱桡肌"
+    ],
+    "setup": "站稳，上臂放体侧，掌心朝前，全握哑铃；屈肘时掌心朝上，手腕平直。易晃动可改有靠背的坐姿。",
+    "force": "屈肘把哑铃向肩前带动，再缓慢下放；上臂大致稳定，不用腰后仰甩起。",
+    "cue": "弯的是肘，不是手腕。",
+    "avoid": "肘腕疼痛时停止。插图为站姿；来源为坐姿，参考握法与屈肘控制，支撑条件不同。",
+    "source": "ACE：Seated Biceps Curl（站姿改编）",
+    "url": "https://www.acefitness.org/resources/everyone/exercise-library/44/seated-biceps-curl/"
+  },
+  {
+    "id": "hammer-curl",
+    "name": "哑铃垂式弯举",
+    "short": "手臂 · 中立握",
+    "level": "哑铃",
+    "primary": [
+      "肱肌",
+      "肱桡肌",
+      "肱二头肌"
+    ],
+    "secondary": [
+      "前臂握力肌群"
+    ],
+    "setup": "掌心相对，哑铃在体侧，站稳、腕平直，上臂自然靠近躯干。",
+    "force": "保持掌心相对屈肘抬起，再缓慢下放，可同步或交替；不扭腕变成普通弯举。",
+    "cue": "像握锤子，肘别往前甩。",
+    "avoid": "需要耸肩、后仰或甩动才能完成就减重；不宣称完全孤立某块肌肉。",
+    "source": "ACE：Hammer Curl",
+    "url": "https://www.acefitness.org/resources/everyone/exercise-library/10/hammer-curl/"
+  },
+  {
+    "id": "lateral-raise",
+    "name": "哑铃侧平举",
+    "short": "肩部 · 侧向抬举",
+    "level": "哑铃",
+    "primary": [
+      "三角肌中束"
+    ],
+    "secondary": [
+      "冈上肌",
+      "肩胛旋转相关肌群"
+    ],
+    "setup": "轻哑铃置于体侧，站稳，肘稍弯、腕平直，头颈自然。双臂可略在身体侧前方。",
+    "force": "向两侧受控抬起，到肩部舒适高度，通常不必超过肩高，再缓慢下降。",
+    "cue": "向两侧展开，不做小拇指朝上的倒水动作。",
+    "avoid": "不甩腰起重量、不全程强锁肩胛；夹挤感或锐痛时停止。",
+    "source": "ACE：Lateral Raise",
+    "url": "https://www.acefitness.org/resources/everyone/exercise-library/26/lateral-raise/"
+  },
+  {
+    "id": "seated-dumbbell-shoulder-press",
+    "name": "坐姿哑铃推肩",
+    "short": "肩部 · 垂直推",
+    "level": "哑铃与靠背凳",
+    "primary": [
+      "前三角肌",
+      "三角肌中束"
+    ],
+    "secondary": [
+      "肱三头肌"
+    ],
+    "setup": "锁紧靠背，臀背靠稳、脚踩地。哑铃在肩附近，拇指环握，前臂大致竖直，肘可略在躯干前方。",
+    "force": "躯干稳定，哑铃向上推，再控制降到舒适位置；让肩胛随抬臂自然运动，不靠腰后仰换幅度。",
+    "cue": "向上推，肋骨别翻起。",
+    "avoid": "过头活动疼痛或需过度拱腰才能完成时停止并调整；重哑铃起落请人协助。",
+    "source": "ACE：Seated Overhead Press（支撑与运动控制参考）",
+    "url": "https://www.acefitness.org/resources/everyone/exercise-library/45/seated-overhead-press/"
+  },
+  {
+    "id": "reverse-pec-deck",
+    "name": "蝴蝶机反向飞鸟",
+    "short": "肩后束与上背",
+    "level": "支持反向模式的蝴蝶机",
+    "primary": [
+      "后三角肌"
+    ],
+    "secondary": [
+      "菱形肌",
+      "中斜方肌"
+    ],
+    "setup": "确认机器支持反向模式，按铭牌设置档位。面向靠垫坐，胸有支撑，把手接近肩高，握稳、肘轻弯。",
+    "force": "胸保持靠垫，以肩带动双臂向两侧打开，再缓慢还原；肘角大致固定，避免做成划船。",
+    "cue": "手臂向外展开，胸别离垫。",
+    "avoid": "不强拉到身后、不耸肩甩动；把手形状不同，掌心方向可不同，以舒适握位为先。",
+    "source": "Fitness Institute：Rear Delt",
+    "url": "https://fitnessinstitute.com.au/rear-delt-pin-loaded/"
+  }
+]);
 const EXERCISE_BY_ID = Object.fromEntries(VERIFIED_EXERCISES.map(exercise => [exercise.id, exercise]));

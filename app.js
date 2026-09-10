@@ -199,8 +199,11 @@ function renderToday() {
 }
 
 function renderLibrary() {
-  $('#library-count').textContent = `${VERIFIED_EXERCISES.length} 个已收录动作`;
-  $('#library-list').innerHTML = VERIFIED_EXERCISES.map((exercise) => `<button class="library-card" type="button" data-exercise-id="${escapeAttribute(exercise.id)}">
+  const query = ($('#library-search')?.value || '').trim().toLowerCase();
+  const exercises = VERIFIED_EXERCISES.filter(e => [e.name, e.short, e.level, ...e.primary, ...e.secondary].join(' ').toLowerCase().includes(query));
+  $('#library-count').textContent = exercises.length + ' / ' + VERIFIED_EXERCISES.length + ' 个动作';
+  $('#teaching-count').textContent = VERIFIED_EXERCISES.length + ' 张动作插图 · 握法与常见问题 ›';
+  $('#library-list').innerHTML = exercises.map((exercise) => `<button class="library-card" type="button" data-exercise-id="${escapeAttribute(exercise.id)}">
     ${muscleMap(exercise, true)}
     <span><strong>${escapeHTML(exercise.name)}</strong><small>主要：${escapeHTML(exercise.primary.join('、'))}</small><em>${escapeHTML(exercise.level)}</em></span><b>查看教学 ›</b>
   </button>`).join('');
@@ -294,6 +297,7 @@ function switchTab(tab) {
 }
 
 function bindEvents() {
+  $('#library-search').addEventListener('input', renderLibrary);
   document.querySelectorAll('[data-tab]').forEach((button) => button.addEventListener('click', () => switchTab(button.dataset.tab)));
   document.querySelectorAll('[data-go]').forEach((button) => button.addEventListener('click', () => switchTab(button.dataset.go)));
   document.addEventListener('click', (event) => {
